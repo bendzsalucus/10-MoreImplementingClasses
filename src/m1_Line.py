@@ -229,6 +229,7 @@ class Line(object):
         # --------------------------------------------------------------
         self.start = start.clone()
         self.end = end.clone()
+        self.clonenumber = 0
 
 
 
@@ -343,6 +344,7 @@ class Line(object):
         # --------------------------------------------------------------
         #clonex = self.start.clone()
         #cloney = self.end.clone()
+        self.clonenumber = 1 + self.clonenumber
         return Line(self.start, self.end)
 
 
@@ -421,6 +423,7 @@ class Line(object):
         run = x2_value - x1_value
 
         if run == 0:
+            #return math.inf
             return math.inf
         else:
             slope = rise / run
@@ -459,8 +462,23 @@ class Line(object):
         Type hints:
           :rtype: float
         """
+        x2_value = self.start.x
+        y2_value = self.start.y
+        y1_value = self.end.y
+        x1_value = self.end.x
+
+        a = y2_value - y1_value
+        b = x2_value - x1_value
+        a1 = a**2
+        b2 = b**2
+        c = a1 + b2
+        c1 = math.sqrt(c)
+        return c1
+
+
+
         # --------------------------------------------------------------
-        # TODO: 7.
+        # DOne: 7.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -499,8 +517,9 @@ class Line(object):
         Type hints:
           :rtype: int:
         """
+        return self.clonenumber
         # --------------------------------------------------------------
-        # TODO: 8.
+        # DOne: 8.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -533,8 +552,18 @@ class Line(object):
           :type  other_line: Line
           :rtype: Line:
         """
+
+        x1 = self.start.x + other_line.start.x
+        y1 = self.start.y + other_line.start.y
+        startother_line = Point(x1, y1)
+        x2 = self.end.x + other_line.end.x
+        y2 = self.end.y + other_line.end.y
+        endother_line = Point(x2, y2)
+        other_line = Line(startother_line, endother_line)
+        return other_line
+
         # --------------------------------------------------------------
-        # TODO: 9.
+        # DOne: 9.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -567,8 +596,16 @@ class Line(object):
           :type  other_line: Line
           :rtype: Line:
         """
+        x1 = self.start.x - other_line.start.x
+        y1 = self.start.y - other_line.start.y
+        startother_line = Point(x1, y1)
+        x2 = self.end.x - other_line.end.x
+        y2 = self.end.y - other_line.end.y
+        endother_line = Point(x2, y2)
+        other_line = Line(startother_line, endother_line)
+        return other_line
         # --------------------------------------------------------------
-        # TODO: 10.
+        # DOne: 10.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -594,8 +631,18 @@ class Line(object):
         Type hints:
           :rtype: Point
         """
+        x2_value = self.start.x
+        y2_value = self.start.y
+        y1_value = self.end.y
+        x1_value = self.end.x
+
+        a = y2_value + y1_value
+        b = x2_value + x1_value
+        a1 = a / 2
+        b2 = b / 2
+        return Point(b2, a1)
         # --------------------------------------------------------------
-        # TODO: 11.
+        # Done: 11.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -603,6 +650,12 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+
+    def slope_find(self, line):
+        y = line.start.y - line.end.y
+        x = line.start.x - line.end.x
+        slope_line = y / x
+        return slope_line
 
     def is_parallel(self, line2):
         """
@@ -630,6 +683,26 @@ class Line(object):
           :type  line2: Line
           :rtype: bool
         """
+        y1 = self.start.y - self.end.y
+        x1 = self.start.x - self.end.x
+
+        y = line2.start.y - line2.end.y
+        x = line2.start.x - line2.end.x
+
+
+        if x1 == 0 and x == 0:
+            return True
+
+        if x1 == 0 or x == 0:
+            return False
+
+        if (y1//x1) == (y//x):
+            return True
+
+        return False
+
+
+
         # --------------------------------------------------------------
         # TODO: 12.
         #   a. READ the above specification, including the Example.
@@ -665,6 +738,9 @@ class Line(object):
         # and (usually) adequate to distinguish numbers that really
         # are different from each other.
         ################################################################
+
+
+
 
     def reset(self):
         """
