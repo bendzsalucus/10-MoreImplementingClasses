@@ -230,6 +230,8 @@ class Line(object):
         self.start = start.clone()
         self.end = end.clone()
         self.clonenumber = 0
+        self.start1 = start
+        self.start2 = end
 
 
 
@@ -704,7 +706,7 @@ class Line(object):
 
 
         # --------------------------------------------------------------
-        # TODO: 12.
+        # DOne: 12.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -771,6 +773,8 @@ class Line(object):
             print(line1)  # Should print: Line[(-3, -4), (3, 4)]
             print(line2)  # Should print: Line[(0, 1), (10, 20)]
         """
+        self.start = self.start1
+        self.end = self.start2
         # --------------------------------------------------------------
         # TODO: 13.
         #   a. READ the above specification, including the Example.
